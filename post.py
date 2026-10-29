@@ -91,7 +91,9 @@ def metricool(payload):
     user = os.environ.get("METRICOOL_USER_ID", "2209069")
     blog = os.environ.get("METRICOOL_BLOG_ID", "2740762")
     url = f"https://app.metricool.com/api/v2/scheduler/posts?blogId={blog}&userId={user}"
-    if os.environ.get("DRY_RUN") == "1" or not token:
+    if not token and os.environ.get("DRY_RUN") != "1":
+        raise RuntimeError("METRICOOL_TOKEN fehlt (Secret im Repo anlegen)")
+    if os.environ.get("DRY_RUN") == "1":
         print("DRY RUN", url, json.dumps(payload, ensure_ascii=False, indent=2))
         return {"dry_run": True}
     req = urllib.request.Request(
