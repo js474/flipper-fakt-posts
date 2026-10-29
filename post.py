@@ -156,12 +156,12 @@ def cmd_schedule():
         (f"{txt}\n\nMehr dazu im Flippɘr-Blog: {link}", ["linkedin", "gmb"]),
         # X: 280 Zeichen, Link nur wenn er passt (X zählt Links als 23 Zeichen)
     ]
+    # X: Bild trägt den Inhalt. Langer Text wird durch einen Kurztext ersetzt.
     if len(txt) + 25 <= 280:
-        posts.append((f"{txt}\n\n{link}", ["twitter"]))
-    elif len(txt) <= 280:
-        posts.append((txt, ["twitter"]))
+        x_text = f"{txt}\n\n{link}"
     else:
-        print(f"X übersprungen: Text hat {len(txt)} Zeichen (max. 280 ohne X Premium)")
+        x_text = f"Fix & Flip Fakt aus dem Flippɘr-Blog:\n{link}"
+    posts.append((x_text, ["twitter"]))
     errors = []
     for text, nets in posts:
         try:
