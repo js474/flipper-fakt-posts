@@ -18,5 +18,125 @@
     "ablauf": "2027-04-30",
     "status": "offen",
     "gepostet_am": ""
+  },
+  {
+    "id": "003",
+    "text": "Praxisregel: Kalkuliere bei jeder Sanierung einen Puffer für unvorhergesehene Arbeiten ein, **zeitlich und finanziell**. Bei Bestandsimmobilien kommt nach dem Abtragen einer Schicht häufig die nächste Baustelle zum Vorschein.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/ich-brauche-eure-hilfe-tapete-bad-kernsanierung",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "004",
+    "text": "Für einen bündigen Übergang von Fliese zu Parkett gilt: **Aufbauhöhen beider Beläge vor dem Verlegen abstimmen.** Fliese liegt auf Kleber, Parkett auf Trägermaterial oder schwimmend. Der Rohboden unter dem Parkett wird entsprechend aufgebaut.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/aluleiste-fliese-parkett-fix-and-flip-qualitaet",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "005",
+    "text": "Praxisregel beim Flip: Zwischen Fliese und Parkett setzen wir **keine Aluleiste**. Beide Beläge liegen auf exakt gleicher Höhe, damit kein Übergangsprofil nötig ist, das einen Höhenunterschied überbrückt.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/aluleiste-fliese-parkett-fix-and-flip-qualitaet",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "006",
+    "text": "Plane bei der Renovierung mit **Standardprodukten** statt mit Sonderanfertigungen. Sie sind sofort verfügbar, im Preis kalkulierbar und Handwerker können sie schnell einbauen.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/meine-lieblingstuer-von-der-stange-diamond-door-bauhaus",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "007",
+    "text": "Regel für den Grundriss: Trenne mit Innentüren den Wohnbereich vom **organisatorischen Bereich** der Wohnung. Dazu zählen Küche, Bad und Flur.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/meine-lieblingstuer-von-der-stange-diamond-door-bauhaus",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "008",
+    "text": "Beim Fix and Flip gilt als Regel: Auf die kalkulierten Renovierungskosten kommt ein Puffer von **15 bis 20 Prozent**. Bei Bestandsimmobilien weißt du vorher nie genau, was hinter Verkleidungen, Tapeten oder abgehängten Decken steckt.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/pfusch-oder-kunst-kurioseste-funde-fix-and-flip",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "009",
+    "text": "Auf dem Glasrand eines Fensters, meist unten am Flügel, steht in der Regel ein **blauer Aufdruck** mit dem Herstellungs- beziehungsweise Einbaudatum. Bei Spiegelung hilft ein anderer Blickwinkel oder die Handy-Taschenlampe.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/so-checkst-du-bei-der-besichtigung-wie-alt-die-fenster-sind",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "010",
+    "text": "So erkennst du die Verglasung bei der Besichtigung: Zähle die sichtbaren Scheiben. **Eine Scheibe** ist Einfachverglasung, zwei sind Zweifachverglasung, drei sind Dreifachverglasung.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/so-checkst-du-bei-der-besichtigung-wie-alt-die-fenster-sind",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "011",
+    "text": "Vergleiche das Einbaujahr der Fenster mit dem Baujahr des Gebäudes. Weicht es deutlich ab, wurden die Fenster **nachträglich eingebaut**. Das spricht dafür, dass der Vorbesitzer investiert hat.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/so-checkst-du-bei-der-besichtigung-wie-alt-die-fenster-sind",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "012",
+    "text": "Stammt das Gebäude aus den 1990ern und sind die Fenster noch original, also zweifach verglast und **über 25 Jahre alt**, kalkulierst du den Fensteraustausch fest in die Sanierungskosten ein.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/so-checkst-du-bei-der-besichtigung-wie-alt-die-fenster-sind",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "013",
+    "text": "Die Gesamtrechnung im Fix and Flip hat vier Posten: **Kaufpreis plus Nebenkosten** (Grunderwerbsteuer, Notar, Makler), Renovierungskosten, Haltekosten und Verkaufskosten. Wer nur auf den Kaufpreis schaut, lässt drei Posten außer Acht.",
+    "kategorie": "rechnung",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/wer-beim-ankauf-nur-am-preis-dreht-verliert-oft-den-deal",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "014",
+    "text": "Verkäufer:innen entscheiden nicht nur über den Preis. Im Ankauf zählen auch **Vertrauen, Sicherheit, Geschwindigkeit und Unkompliziertheit**. Kläre deshalb zuerst, was die Verkäuferseite braucht, und mach dann ein Angebot.",
+    "kategorie": "praxis",
+    "quelle": "Praxiserfahrung Flippɘr",
+    "blog": "https://www.flipperimmo.com/blog/wer-beim-ankauf-nur-am-preis-dreht-verliert-oft-den-deal",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
   }
 ]
