@@ -2,7 +2,8 @@ name: Taeglicher Fakt-Post
 
 on:
   schedule:
-    - cron: "17 8 * * *"   # 08:17 UTC = 09:17 Winterzeit / 10:17 Sommerzeit, Post geht um POST_TIME raus
+    - cron: "17 8 * * *"    # Lauf 1: Post um 11:47, alle Kanäle
+    - cron: "17 15 * * *"   # Lauf 2: Post um 19:43, ohne Instagram (dort laufen schon die Karussells)
   push:
     branches: [test-run]   # Push auf diesen Branch = Testlauf als Entwurf
   workflow_dispatch:
@@ -29,7 +30,8 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       METRICOOL_USER_ID: "2209069"
       METRICOOL_BLOG_ID: "2740762"
-      POST_TIME: "11:47"
+      POST_TIME: ${{ github.event.schedule == '17 15 * * *' && '19:43' || '11:47' }}
+      NETWORKS: ${{ github.event.schedule == '17 15 * * *' && 'facebook,linkedin,gmb,twitter' || '' }}
       DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
       DRAFT: ${{ github.ref_name == 'test-run' && '1' || github.event.inputs.draft || '0' }}
     steps:
@@ -39,9 +41,9 @@ jobs:
           python-version: "3.12"
       - run: pip install pillow==11.0.0
 
-      - name: Notfall-Auffuellen (unter 3 offene Fakten)
+      - name: Notfall-Auffuellen (unter 6 offene Fakten)
         if: env.DRY_RUN != '1' && env.ANTHROPIC_API_KEY != ''
-        run: python refill.py 3
+        run: python refill.py 6
 
       - name: Fakt rendern
         run: python post.py render

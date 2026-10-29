@@ -1,13 +1,14 @@
 """Fakt-Bank auffüllen: zieht Fakten aus noch nicht verarbeiteten Blogartikeln.
 
 Läuft wöchentlich und zusätzlich im täglichen Job, sobald weniger als MIN_OPEN
-offene Fakten da sind. Jeder Fakt wird von Claude per Websuche gegen eine
-Primärquelle geprüft, die Regeln stehen in REGELN.md.
+offene Fakten da sind. Der Blog gilt als geprüfte Quelle, ein Claude-Aufruf pro Artikel ohne Websuche.
+Die Regeln stehen in REGELN.md.
 
-  python refill.py [ZIEL]   ZIEL = gewünschte Anzahl offener Fakten (Standard 14)
+  python refill.py [ZIEL]   ZIEL = gewünschte Anzahl offener Fakten (Standard 28)
 
 Umgebungsvariablen: ANTHROPIC_API_KEY (Secret), CLAUDE_MODEL (Standard claude-sonnet-5-5)
 """
+import datetime as dt
 import html
 import json
 import os
@@ -21,7 +22,7 @@ FACTS = os.path.join(ROOT, "facts.json")
 PROCESSED = os.path.join(ROOT, "processed.json")
 SITEMAP = "https://www.flipperimmo.com/sitemap.xml"
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
-MAX_ARTICLES_PER_RUN = 15
+MAX_ARTICLES_PER_RUN = 20
 BANNED = re.compile(r"coaching|coach\b|leverage|—|–", re.I)
 UA = {"User-Agent": "Mozilla/5.0 (fakt-bot; +https://www.flipperimmo.com)"}
 
@@ -95,13 +96,13 @@ Heutiges Datum: {today}
 
 AUFGABE:
 1. Lies den Blogartikel unten.
-2. Wähle 0 bis 5 Aussagen, die die Regeln erfüllen. Lieber 0 als ein wackliger Fakt.
-3. Prüfe JEDE Zahl, Frist und Rechtsaussage per Websuche gegen eine Primärquelle (Gesetz, Destatis, Bundesbank, Verband, Gericht). Der Blog selbst zählt nicht als Quelle. Was du nicht belegen kannst, fliegt raus. Rechenbeispiele rechnest du nach.
+2. Wähle 0 bis {max_facts} Aussagen, die die Regeln erfüllen. Lieber weniger als ein wackliger Fakt.
+3. Der Artikel ist bereits faktengeprüft und gilt als Quelle. Übernimm nur, was dort klar steht, erfinde nichts dazu, runde nicht um. Rechenbeispiele rechnest du nach. Als "quelle" nennst du die Primärquelle, die der Artikel angibt, sonst "Flippɘr-Blog".
 4. Formuliere jeden Fakt neu: deutsch, sachlich, "du"-Ansprache, höchstens 280 Zeichen ohne Markierungen, höchstens zwei **Markierungen** für die wichtigste Zahl oder Aussage, höchstens ein Absatz (\\n). Keine Gedankenstriche, keine Floskeln, keine Punchlines, gendergerecht.
 5. Marktzahlen bekommen den Stand-Monat in den Text ("Stand Oktober 2026") und ein Ablaufdatum 6 Monate nach Stand.
 
 ANTWORT: nur ein JSON-Array, sonst nichts:
-[{{"text": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "konkrete Primärquelle mit URL oder Paragraph", "ablauf": "JJJJ-MM-TT oder leer"}}]
+[{{"text": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "Primärquelle oder Flippɘr-Blog", "ablauf": "JJJJ-MM-TT oder leer"}}]
 
 ARTIKEL ({url}):
 {article}
@@ -112,8 +113,7 @@ def claude(prompt):
     key = os.environ["ANTHROPIC_API_KEY"]
     body = {
         "model": MODEL,
-        "max_tokens": 4000,
-        "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 8}],
+        "max_tokens": 2000,
         "messages": [{"role": "user", "content": prompt}],
     }
     req = urllib.request.Request(
@@ -122,7 +122,7 @@ def claude(prompt):
         headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=600) as r:
+    with urllib.request.urlopen(req, timeout=180) as r:
         res = json.loads(r.read().decode())
     text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
     m = re.search(r"\[\s*(\{.*\})?\s*\]", text, re.S)
@@ -145,7 +145,7 @@ def valid(f, existing):
 
 
 def main():
-    target = int(sys.argv[1]) if len(sys.argv) > 1 else 14
+    target = int(sys.argv[1]) if len(sys.argv) > 1 else 28
     facts = load(FACTS, [])
     processed = set(load(PROCESSED, []))
     processed |= {f["blog"] for f in facts if f.get("blog")}
@@ -154,7 +154,6 @@ def main():
         print(f"{open_()} offene Fakten, nichts zu tun")
         return
     rules = open(os.path.join(ROOT, "REGELN.md"), encoding="utf-8").read()
-    import datetime as dt
     today = dt.date.today().isoformat()
     next_id = max([int(f["id"]) for f in facts] + [0]) + 1
     done = 0
@@ -163,10 +162,17 @@ def main():
             break
         if url in processed:
             continue
+        news = re.search(r"flipper-news-(\d{2})-(\d{2})-(\d{4})", url)
+        if news:
+            d = dt.date(int(news.group(3)), int(news.group(2)), int(news.group(1)))
+            if (dt.date.today() - d).days > 120:  # Marktzahlen veralten, alte Ausgaben nicht auswerten
+                processed.add(url)
+                continue
         done += 1
         try:
             art = article_text(url)
-            new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:20000]))
+            new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:12000],
+                                       max_facts=3 if news else 5))
         except Exception as e:
             print("FEHLER", url, e)
             continue
@@ -186,8 +192,9 @@ def main():
         dump(FACTS, facts)
         dump(PROCESSED, sorted(processed))
     print(f"Offen: {open_()} (Ziel {target})")
-    if open_() < 7:
-        sys.exit("Weniger als 7 offene Fakten. Blog liefert zu wenig, bitte prüfen.")
+    dump(PROCESSED, sorted(processed))
+    if open_() < 14:
+        sys.exit("Weniger als 14 offene Fakten (eine Woche). Blog liefert zu wenig, bitte prüfen.")
 
 
 if __name__ == "__main__":

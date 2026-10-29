@@ -11,6 +11,7 @@ Umgebungsvariablen:
   METRICOOL_BLOG_ID           Standard 2740762 (Marke flipper.immo)
   POST_TIME                   Uhrzeit Europe/Berlin, Standard 11:47
   IMAGE_BASE_URL              Standard https://raw.githubusercontent.com/<repo>/main/out
+  NETWORKS                    Kanäle einschränken, z. B. "facebook,linkedin,gmb,twitter"
   DRY_RUN=1                   nur anzeigen, nichts senden
 """
 import datetime as dt
@@ -162,6 +163,10 @@ def cmd_schedule():
     else:
         x_text = f"Fix & Flip Fakt aus dem Flippɘr-Blog:\n{link}"
     posts.append((x_text, ["twitter"]))
+    only = [n.strip() for n in os.environ.get("NETWORKS", "").split(",") if n.strip()]
+    if only:
+        posts = [(t, [n for n in nets if n in only]) for t, nets in posts]
+        posts = [(t, nets) for t, nets in posts if nets]
     errors = []
     for text, nets in posts:
         try:

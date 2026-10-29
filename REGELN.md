@@ -6,14 +6,14 @@ Gilt für jeden Eintrag in `facts.json`, egal ob von Hand oder automatisch aus d
 
 - Eine Aussage pro Post, ohne Kontext verständlich
 - Konkrete Zahl, Frist, Paragraph oder Rechenweg
-- Zahlen, die gegen eine Primärquelle prüfbar sind (Gesetz, Destatis, Bundesbank, Verband, Gericht). Quelle ins Feld `quelle`
+- Zahlen und Aussagen, die im Blogartikel klar stehen (der Blog ist bereits faktengeprüft). Nennt der Artikel eine Primärquelle, kommt sie ins Feld `quelle`, sonst `Flippɘr-Blog`
 - Marktzahlen (z. B. aus FlipperNews) nur mit Stand-Monat im Text und mit `ablauf` spätestens 6 Monate nach Stand
 - Praxisregeln aus eigener Erfahrung, erkennbar als Regel formuliert, `kategorie: praxis`, `quelle: Praxiserfahrung Flippɘr`
 - Rechenbeispiele, deren Rechnung stimmt (vor dem Eintragen nachrechnen)
 
 ## Nicht rein
 
-- Zahlen ohne Quelle oder nur durch den eigenen Blog belegt
+- Zahlen, die nicht im Artikel stehen oder hinzugedichtet sind
 - Steuer- und Rechtstipps, deren Ergebnis vom Einzelfall abhängt
 - Prognosen zu Zinsen, Preisen oder Märkten
 - Kunden- und Objektnamen, Adressen, eigene Deal-Zahlen ohne Freigabe von Johannes
