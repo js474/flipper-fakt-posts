@@ -27,8 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fakten aus neuen Blogartikeln ziehen (Ziel 28 offene)
-        run: python refill.py 28
+      - name: Fakten aus neuen Blogartikeln ziehen (Ziel 14 offene)
+        run: python refill.py 14
       - name: Speichern
         if: always()
         run: |

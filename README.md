@@ -4,7 +4,7 @@ Postet jeden Tag einen Fakt im Tweet-Format auf Instagram, Facebook, LinkedIn, X
 
 ## So läuft es
 
-1. GitHub Actions startet zweimal täglich (`.github/workflows/daily.yml`): Post um 11:47 auf allen Kanälen, Post um 19:43 auf Facebook, LinkedIn, Google und X (ohne Instagram, dort laufen die Karussells).
+1. GitHub Actions startet täglich (`.github/workflows/daily.yml`), Post um 11:47 auf allen Kanälen.
 2. `post.py render` nimmt den ersten Eintrag in `facts.json` mit `status: offen`, rendert `out/<id>.png` (abwechselnd weiß und schwarz) und pusht das Bild.
 3. `post.py schedule` plant den Post in Metricool ein:
    - Instagram und Facebook: Text, CTA „Tools“, Hashtags, kein Link
@@ -14,8 +14,8 @@ Postet jeden Tag einen Fakt im Tweet-Format auf Instagram, Facebook, LinkedIn, X
 
 ## Fakt-Bank füllt sich selbst
 
-- Jeden Sonntag zieht `refill.py` Fakten aus noch nicht verarbeiteten Blogartikeln (inkl. FlipperNews, neueste zuerst, laut Sitemap), bis 28 offene Fakten bereitliegen (zwei Wochen bei zwei Posts am Tag). Ein Claude-Aufruf pro Artikel, ohne Websuche, weil der Blog schon geprüft ist. FlipperNews älter als 4 Monate werden übersprungen. Regeln in `REGELN.md`.
-- Fallen die offenen Fakten unter 6, füllt der tägliche Lauf vor dem Posten nach.
+- Jeden Sonntag zieht `refill.py` Fakten aus noch nicht verarbeiteten Blogartikeln (inkl. FlipperNews, neueste zuerst, laut Sitemap), bis 14 offene Fakten bereitliegen (zwei Wochen Vorlauf). Ein Claude-Aufruf pro Artikel, ohne Websuche, weil der Blog schon geprüft ist. FlipperNews älter als 4 Monate werden übersprungen. Regeln in `REGELN.md`.
+- Fallen die offenen Fakten unter 3, füllt der tägliche Lauf vor dem Posten nach.
 - Verarbeitete Artikel stehen in `processed.json` und werden nicht doppelt ausgewertet.
 - Sofort auffüllen: `main` auf den Branch `refill-now` pushen.
 - Von Hand ergänzen geht weiterhin über neue Einträge in `facts.json`.

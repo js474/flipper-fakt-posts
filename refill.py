@@ -4,7 +4,7 @@ Läuft wöchentlich und zusätzlich im täglichen Job, sobald weniger als MIN_OP
 offene Fakten da sind. Der Blog gilt als geprüfte Quelle, ein Claude-Aufruf pro Artikel ohne Websuche.
 Die Regeln stehen in REGELN.md.
 
-  python refill.py [ZIEL]   ZIEL = gewünschte Anzahl offener Fakten (Standard 28)
+  python refill.py [ZIEL]   ZIEL = gewünschte Anzahl offener Fakten (Standard 14)
 
 Umgebungsvariablen: ANTHROPIC_API_KEY (Secret), CLAUDE_MODEL (Standard claude-sonnet-5-5)
 """
@@ -145,7 +145,7 @@ def valid(f, existing):
 
 
 def main():
-    target = int(sys.argv[1]) if len(sys.argv) > 1 else 28
+    target = int(sys.argv[1]) if len(sys.argv) > 1 else 14
     facts = load(FACTS, [])
     processed = set(load(PROCESSED, []))
     processed |= {f["blog"] for f in facts if f.get("blog")}
@@ -193,8 +193,8 @@ def main():
         dump(PROCESSED, sorted(processed))
     print(f"Offen: {open_()} (Ziel {target})")
     dump(PROCESSED, sorted(processed))
-    if open_() < 14:
-        sys.exit("Weniger als 14 offene Fakten (eine Woche). Blog liefert zu wenig, bitte prüfen.")
+    if open_() < 7:
+        sys.exit("Weniger als 7 offene Fakten (eine Woche). Blog liefert zu wenig, bitte prüfen.")
 
 
 if __name__ == "__main__":
