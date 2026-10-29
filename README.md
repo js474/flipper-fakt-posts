@@ -18,8 +18,7 @@ Neue Posts = neue Einträge in `facts.json`. Regeln stehen in `REGELN.md`.
 
 1. Repo **öffentlich** anlegen und diesen Ordner pushen. Öffentlich ist nötig, weil Metricool das Bild über die Raw-URL von GitHub abholt. Für ein privates Repo muss `IMAGE_BASE_URL` auf einen anderen öffentlichen Speicher zeigen.
 2. Unter Settings > Secrets and variables > Actions das Secret `METRICOOL_TOKEN` anlegen (Metricool > Einstellungen > API).
-3. Unter Settings > Actions > General „Read and write permissions“ für den `GITHUB_TOKEN` aktivieren.
-4. Testlauf: Actions > „Taeglicher Fakt-Post“ > Run workflow mit `draft = 1`. Der Post landet dann als Entwurf in Metricool und geht nicht live.
+3. Testlauf: `main` auf den Branch `test-run` pushen (oder Actions > Run workflow mit `draft = 1`). Der Post landet als Entwurf in Metricool und geht nicht live.
 
 ## Lokal testen
 

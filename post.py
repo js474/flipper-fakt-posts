@@ -141,7 +141,7 @@ def cmd_schedule():
     if not fact:
         sys.exit("Kein Fakt zum Einplanen gefunden.")
     repo = os.environ.get("GITHUB_REPOSITORY", "OWNER/flipper-fakt-posts")
-    base = os.environ.get("IMAGE_BASE_URL", f"https://raw.githubusercontent.com/{repo}/main/out")
+    base = os.environ.get("IMAGE_BASE_URL", f"https://raw.githubusercontent.com/{repo}/{os.environ.get('GITHUB_REF_NAME', 'main')}/out")
     image = f"{base}/{fact['id']}.png"
     when = publish_time()
     txt = plain(fact["text"])
