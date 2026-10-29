@@ -96,9 +96,10 @@ Heutiges Datum: {today}
 
 AUFGABE:
 1. Lies den Blogartikel unten.
-2. Wähle 0 bis {max_facts} Aussagen, die die Regeln erfüllen. Lieber weniger als ein wackliger Fakt.
+2. Wähle 0 bis {max_facts} Aussagen, die die Regeln erfüllen. Lieber 0 als ein schwacher Fakt.
+   Ein Fakt muss für Leute, die schon Immobilien kaufen, neu oder überraschend sein: eine konkrete Zahl, Frist, ein Paragraph, ein Kostenwert oder ein Prüftrick. Allgemeine Tipps wie "Puffer einplanen", "gut kalkulieren", "Vertrauen aufbauen" sind raus. Keine zwei Fakten zum selben Thema.
 3. Der Artikel ist bereits faktengeprüft und gilt als Quelle. Übernimm nur, was dort klar steht, erfinde nichts dazu, runde nicht um. Rechenbeispiele rechnest du nach. Als "quelle" nennst du die Primärquelle, die der Artikel angibt, sonst "Flippɘr-Blog".
-4. Formuliere jeden Fakt neu: deutsch, sachlich, "du"-Ansprache, höchstens 280 Zeichen ohne Markierungen, höchstens zwei **Markierungen** für die wichtigste Zahl oder Aussage, höchstens ein Absatz (\\n). Keine Gedankenstriche, keine Floskeln, keine Punchlines, gendergerecht.
+4. Formuliere jeden Fakt neu: deutsch, sachlich, "du"-Ansprache, höchstens 280 Zeichen ohne Markierungen, höchstens zwei **Markierungen** für die wichtigste Zahl oder Aussage, höchstens ein Absatz (\\n). Keine Gedankenstriche, keine Floskeln, keine Punchlines, keine Einleitungen wie "Praxisregel:" oder "Beim Fix and Flip gilt". Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
 5. Marktzahlen bekommen den Stand-Monat in den Text ("Stand Oktober 2026") und ein Ablaufdatum 6 Monate nach Stand.
 
 ANTWORT: nur ein JSON-Array, sonst nichts:
@@ -172,7 +173,7 @@ def main():
         try:
             art = article_text(url)
             new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:12000],
-                                       max_facts=3 if news else 5))
+                                       max_facts=2 if news else 3))
         except Exception as e:
             print("FEHLER", url, e)
             continue
