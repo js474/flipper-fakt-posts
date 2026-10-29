@@ -97,7 +97,7 @@ Heutiges Datum: {today}
 AUFGABE:
 1. Lies den Blogartikel unten.
 2. Wähle 0 bis {max_facts} Aussagen, die die Regeln erfüllen. Lieber 0 als ein schwacher Fakt.
-   Ein Fakt muss für Leute, die schon Immobilien kaufen, neu oder überraschend sein: eine konkrete Zahl, Frist, ein Paragraph, ein Kostenwert oder ein Prüftrick. Allgemeine Tipps wie "Puffer einplanen", "gut kalkulieren", "Vertrauen aufbauen" sind raus. Keine zwei Fakten zum selben Thema.
+   Erlaubt ist alles, was hilfreich ist oder Mehrwert bringt: harte Fakten (Zahl, Frist, Paragraph, Kostenwert), Prüftricks und allgemeine Praxistipps. Keine zwei Fakten zum selben Thema.
 3. Der Artikel ist bereits faktengeprüft und gilt als Quelle. Übernimm nur, was dort klar steht, erfinde nichts dazu, runde nicht um. Rechenbeispiele rechnest du nach. Als "quelle" nennst du die Primärquelle, die der Artikel angibt, sonst "Flippɘr-Blog".
 4. Formuliere jeden Fakt neu: deutsch, sachlich, "du"-Ansprache, höchstens 280 Zeichen ohne Markierungen, höchstens zwei **Markierungen** für die wichtigste Zahl oder Aussage, höchstens ein Absatz (\\n). Keine Gedankenstriche, keine Floskeln, keine Punchlines, keine Einleitungen wie "Praxisregel:" oder "Beim Fix and Flip gilt". Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
 5. Marktzahlen bekommen den Stand-Monat in den Text ("Stand Oktober 2026") und ein Ablaufdatum 6 Monate nach Stand.

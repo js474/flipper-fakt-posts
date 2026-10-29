@@ -8,7 +8,7 @@ Gilt für jeden Eintrag in `facts.json`, egal ob von Hand oder automatisch aus d
 - Konkrete Zahl, Frist, Paragraph oder Rechenweg
 - Zahlen und Aussagen, die im Blogartikel klar stehen (der Blog ist bereits faktengeprüft). Nennt der Artikel eine Primärquelle, kommt sie ins Feld `quelle`, sonst `Flippɘr-Blog`
 - Marktzahlen (z. B. aus FlipperNews) nur mit Stand-Monat im Text und mit `ablauf` spätestens 6 Monate nach Stand
-- Praxisregeln aus eigener Erfahrung, erkennbar als Regel formuliert, `kategorie: praxis`, `quelle: Praxiserfahrung Flippɘr`
+- Praxisregeln und allgemeine Tipps mit Mehrwert, `kategorie: praxis`, `quelle: Praxiserfahrung Flippɘr` oder `Flippɘr-Blog`
 - Rechenbeispiele, deren Rechnung stimmt (vor dem Eintragen nachrechnen)
 
 ## Nicht rein
