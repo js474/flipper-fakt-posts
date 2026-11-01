@@ -138,5 +138,65 @@
     "ablauf": "",
     "status": "offen",
     "gepostet_am": ""
+  },
+  {
+    "id": "015",
+    "text": "Die gesetzliche Gewährleistungsfrist für Sachmängel bei Immobilien beträgt **fünf Jahre** ab Übergabe (§ 438 Abs. 1 Nr. 2 BGB). Sie gilt auch für Mängel, die schon bei Übergabe vorhanden waren und erst später entdeckt werden.",
+    "kategorie": "recht",
+    "quelle": "§ 438 Abs. 1 Nr. 2 BGB",
+    "blog": "https://www.flipperimmo.com/blog/gewaehrleistung-nach-verkauf-flipper",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "016",
+    "text": "Fotos von jedem Raum vor, während (offene Wände, Rohinstallationen) und nach der Sanierung solltest du mindestens **sechs Jahre** aufbewahren. Im Streitfall sind sie dein wichtigstes Beweismittel.",
+    "kategorie": "praxis",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/gewaehrleistung-nach-verkauf-flipper",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "017",
+    "text": "Arbeitet ein Handwerksbetrieb mangelhaft, kannst du ihn in Regress nehmen. Die Gewährleistungsfrist im Handwerkervertrag beträgt in der Regel **vier Jahre** nach VOB/B und fünf Jahre nach BGB.",
+    "kategorie": "recht",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/gewaehrleistung-nach-verkauf-flipper",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "018",
+    "text": "Bei einer Haltedauer unter einem Jahr erhöht sich die Grundstückgewinnsteuer in der Schweiz per Zuschlag auf den Grundsteuersatz: In Zürich um **50 Prozent**, in Bern um 80 Prozent und in Luzern um 100 Prozent.",
+    "kategorie": "recht",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/fix-and-flip-schweiz",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "019",
+    "text": "Für eine GmbH in der Schweiz sind **20.000 CHF** Stammkapital nötig. Die AG verlangt 100.000 CHF Aktienkapital, davon müssen 50.000 CHF einbezahlt werden.",
+    "kategorie": "recht",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/fix-and-flip-schweiz",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
+  },
+  {
+    "id": "020",
+    "text": "Die Grundstückgewinnsteuer in der Schweiz fällt auf den Gewinn an: Verkaufserlös abzüglich Anlagekosten. Dazu zählen Kaufpreis, Kaufnebenkosten und **wertvermehrende Investitionen** wie eine Sanierung.",
+    "kategorie": "rechnung",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/fix-and-flip-schweiz",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": ""
   }
 ]
