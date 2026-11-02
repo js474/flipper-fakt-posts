@@ -21,9 +21,12 @@ jobs:
       - name: Video laden
         run: |
           V=$(jq -r .video frames/request.json)
-          yt-dlp -f "bv*[height<=1080][ext=mp4]/bv*[height<=1080]/b" -o "/tmp/v.%(ext)s" "https://www.youtube.com/watch?v=$V" 2>&1 | tail -20
-          ls -la /tmp/v.* 
+          mkdir -p frames/$V
+          yt-dlp -f "bv*[height<=1080][ext=mp4]/bv*[height<=1080]/b" -o "/tmp/v.%(ext)s" "https://www.youtube.com/watch?v=$V" > frames/$V/log.txt 2>&1 || true
+          tail -5 frames/$V/log.txt
+          ls -la /tmp/v.* >> frames/$V/log.txt 2>&1 || true
       - name: Frames schneiden
+        continue-on-error: true
         run: |
           V=$(jq -r .video frames/request.json)
           F=$(ls /tmp/v.* | head -1)
