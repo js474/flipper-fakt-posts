@@ -25,9 +25,10 @@ Gilt für jeden Eintrag in `facts.json`, egal ob von Hand oder automatisch aus d
 
 ## Format
 
-- Höchstens 280 Zeichen Klartext (ohne `**`), sonst entfällt X automatisch
-- Höchstens zwei `**Markierungen**` pro Text
-- `\n` setzt einen Absatz, höchstens ein Absatz pro Text
+- Bildtext 300 bis 520 Zeichen: Zeile 1 die Kernaussage mit Zahl oder klarer Regel, danach 3 bis 4 Zeilen mit „• “, jede mit einem konkreten Detail (Zahl, Prüfschritt, Fehler, Kostenspanne, Paragraph)
+- Höchstens drei `**Markierungen**` pro Text
+- Beitragstext (`caption`) 700 bis 1300 Zeichen mit Details, die nicht auf dem Bild stehen
+- Ein Thema pro Post, dafür in der Tiefe. Artikel über Personen, Events oder Produkte liefern keine Posts
 - Gendergerecht formulieren, „wir“ statt „ich“, keine Floskeln, keine Punchlines, keine Gedankenstriche
 
 ## Felder in facts.json

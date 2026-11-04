@@ -149,19 +149,25 @@ def cmd_schedule():
     when = publish_time()
     txt = plain(fact["text"])
     link = fact.get("blog") or "https://www.flipperimmo.com/blog"
+    # Beitragstext: Vertiefung aus der Fakt-Bank, sonst der Bildtext
+    body = plain(fact.get("caption") or "") or txt
+    gmb_body = body if len(body) <= 1350 else body[:1350].rsplit("\n\n", 1)[0]
 
     posts = [
         # Meta: Kommentar-CTA (ManyChat), keine Links
-        (f"{txt}\n\n{CTA_META}\n\n{HASHTAGS}", ["instagram", "facebook"]),
-        # LinkedIn und Google: Link zum Artikel
-        (f"{txt}\n\nMehr dazu im Flippɘr-Blog: {link}", ["linkedin", "gmb"]),
+        (f"{body}\n\n{CTA_META}\n\n{HASHTAGS}", ["instagram", "facebook"]),
+        # LinkedIn: Vertiefung und Link zum Artikel
+        (f"{body}\n\nDer ganze Artikel: {link}", ["linkedin"]),
+        # Google Unternehmensprofil: max. 1500 Zeichen
+        (f"{gmb_body}\n\n{link}", ["gmb"]),
         # X: 280 Zeichen, Link nur wenn er passt (X zählt Links als 23 Zeichen)
     ]
     # X: Bild trägt den Inhalt. Langer Text wird durch einen Kurztext ersetzt.
     if len(txt) + 25 <= 280:
         x_text = f"{txt}\n\n{link}"
     else:
-        x_text = f"Fix & Flip Fakt aus dem Flippɘr-Blog:\n{link}"
+        first = txt.split("\n")[0]
+        x_text = f"{first}\n\n{link}" if len(first) + 50 <= 280 else link
     posts.append((x_text, ["twitter"]))
     only = [n.strip() for n in os.environ.get("NETWORKS", "").split(",") if n.strip()]
     if only:

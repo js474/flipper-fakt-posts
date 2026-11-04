@@ -23,6 +23,7 @@ PROCESSED = os.path.join(ROOT, "processed.json")
 SITEMAP = "https://www.flipperimmo.com/sitemap.xml"
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
 MAX_ARTICLES_PER_RUN = 20
+SLOP = re.compile(r"entscheidend|essenziell|unerlässlich|maßgeblich|spannend|gamechanger|im blick behalten|nicht unterschätzen|a und o|schlüssel zum erfolg|praxisregel:|fazit:|!", re.I)
 BANNED = re.compile(r"coaching|coach\b|leverage|—|–", re.I)
 UA = {"User-Agent": "Mozilla/5.0 (fakt-bot; +https://www.flipperimmo.com)"}
 
@@ -87,7 +88,7 @@ def blog_urls():
     return [u for u, _ in items]
 
 
-PROMPT = """Du extrahierst Fakt-Posts für Instagram, Facebook, LinkedIn und X von Flippɘr (Fix & Flip, Immobilienhandel in Deutschland).
+PROMPT = """Du baust Wissens-Posts für Flippɘr (Fix & Flip, Immobilienhandel in Deutschland). Zielgruppe: Leute, die Immobilien kaufen, sanieren und verkaufen wollen oder es schon tun. Sie wollen Praxiswissen, das sie morgen anwenden können.
 
 REGELN:
 {rules}
@@ -95,15 +96,29 @@ REGELN:
 Heutiges Datum: {today}
 
 AUFGABE:
-1. Lies den Blogartikel unten.
-2. Wähle 0 bis {max_facts} Aussagen, die die Regeln erfüllen. Lieber 0 als ein schwacher Fakt.
-   Erlaubt ist alles, was hilfreich ist oder Mehrwert bringt: harte Fakten (Zahl, Frist, Paragraph, Kostenwert), Prüftricks und allgemeine Praxistipps. Keine zwei Fakten zum selben Thema.
-3. Der Artikel ist bereits faktengeprüft und gilt als Quelle. Übernimm nur, was dort klar steht, erfinde nichts dazu, runde nicht um. Rechenbeispiele rechnest du nach. Als "quelle" nennst du die Primärquelle, die der Artikel angibt, sonst "Flippɘr-Blog".
-4. Formuliere jeden Fakt neu: deutsch, sachlich, "du"-Ansprache, höchstens 280 Zeichen ohne Markierungen, höchstens zwei **Markierungen** für die wichtigste Zahl oder Aussage, höchstens ein Absatz (\\n). Keine Gedankenstriche, keine Floskeln, keine Punchlines, keine Einleitungen wie "Praxisregel:" oder "Beim Fix and Flip gilt". Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
-5. Marktzahlen bekommen den Stand-Monat in den Text ("Stand Oktober 2026") und ein Ablaufdatum 6 Monate nach Stand.
+Lies den Blogartikel unten und baue daraus 0 bis {max_facts} Posts. Jeder Post behandelt EIN Thema und geht dabei in die Tiefe. Lieber 0 Posts als ein dünner.
+
+Ein Post hat zwei Teile:
+
+1. "text" (steht auf dem Bild, 300 bis 520 Zeichen ohne Markierungen):
+   - Zeile 1: Die Kernaussage als harter Satz, mit Zahl, Frist, Kostenwert oder klarer Regel.
+   - Danach 3 bis 4 Zeilen, jede beginnt mit "• " und bringt ein konkretes Detail: Zahl, Prüfschritt, typischer Fehler, Kostenspanne, Paragraph, Werkzeug, Reihenfolge. Jede Zeile muss allein etwas wert sein.
+   - Zeilen mit \n trennen. Höchstens drei **Markierungen** für die wichtigsten Zahlen.
+2. "caption" (Beitragstext, 700 bis 1300 Zeichen): vertieft das Thema mit weiteren Details aus dem Artikel, die nicht schon auf dem Bild stehen: Rechenbeispiel, Ablauf in Schritten, Ausnahmen, worauf man bei der Besichtigung oder beim Handwerker achtet. Absätze mit \n\n. Kein Hashtag, kein Link, kein CTA, das ergänzt das System.
+
+INHALT:
+- Nur, was im Artikel steht. Der Artikel ist geprüft und gilt als Quelle. Nichts erfinden, nicht umrunden. Rechenbeispiele rechnest du nach.
+- Keine zwei Posts zum selben Thema. Nur Themen, die für den deutschen Markt gelten. Artikel über Einzelpersonen, Events, Teamvorstellungen oder Produkte geben 0 Posts.
+- Marktzahlen bekommen den Stand-Monat in den Text und ein Ablaufdatum 6 Monate nach Stand.
+
+SPRACHE (hart):
+- Deutsch, "du", sachlich, wie ein erfahrener Praktiker, der einem Kollegen etwas erklärt. Konkrete Substantive und Zahlen statt Adjektive.
+- Nach einem Doppelpunkt groß weiterschreiben.
+- Verboten: Gedankenstriche, Floskeln, Punchlines, rhetorische Fragen, Ausrufezeichen, Einleitungen wie "Praxisregel:", "Beim Fix and Flip gilt", "Wichtig:", "Tipp:", "Fazit:". Verboten sind auch Wörter wie "entscheidend", "essenziell", "unerlässlich", "maßgeblich", "spannend", "Gamechanger", "clever", "smart", "nachhaltig", "im Blick behalten", "nicht unterschätzen", "A und O", "Schlüssel zum Erfolg".
+- Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
 
 ANTWORT: nur ein JSON-Array, sonst nichts:
-[{{"text": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "Primärquelle oder Flippɘr-Blog", "ablauf": "JJJJ-MM-TT oder leer"}}]
+[{{"text": "...", "caption": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "Primärquelle aus dem Artikel oder Flippɘr-Blog", "ablauf": "JJJJ-MM-TT oder leer"}}]
 
 ARTIKEL ({url}):
 {article}
@@ -114,7 +129,7 @@ def claude(prompt):
     key = os.environ["ANTHROPIC_API_KEY"]
     body = {
         "model": MODEL,
-        "max_tokens": 2000,
+        "max_tokens": 6000,
         "messages": [{"role": "user", "content": prompt}],
     }
     req = urllib.request.Request(
@@ -137,7 +152,12 @@ def norm(s):
 def valid(f, existing):
     t = f.get("text", "")
     plain = t.replace("**", "")
-    if not t or len(plain) > 280 or t.count("**") > 4 or t.count("**") % 2:
+    cap = f.get("caption", "")
+    if not t or not (250 <= len(plain) <= 560) or t.count("**") > 6 or t.count("**") % 2:
+        return False
+    if t.count("• ") < 2 or not (500 <= len(cap) <= 1600):
+        return False
+    if SLOP.search(t + " " + cap):
         return False
     if BANNED.search(t) or not f.get("quelle"):
         return False
@@ -149,7 +169,7 @@ def main():
     target = int(sys.argv[1]) if len(sys.argv) > 1 else 14
     facts = load(FACTS, [])
     processed = set(load(PROCESSED, []))
-    processed |= {f["blog"] for f in facts if f.get("blog")}
+    processed |= {f["blog"] for f in facts if f.get("blog") and f.get("status") == "gepostet"}
     open_ = lambda: sum(1 for f in facts if f.get("status") == "offen")
     if open_() >= target:
         print(f"{open_()} offene Fakten, nichts zu tun")
@@ -172,8 +192,8 @@ def main():
         done += 1
         try:
             art = article_text(url)
-            new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:12000],
-                                       max_facts=2 if news else 3))
+            new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:30000],
+                                       max_facts=1 if news else 2))
         except Exception as e:
             print("FEHLER", url, e)
             continue
@@ -183,6 +203,7 @@ def main():
                 continue
             facts.append({
                 "id": f"{next_id:03d}", "text": f["text"].strip(), "kategorie": f.get("kategorie", ""),
+                "caption": f.get("caption", "").strip(),
                 "quelle": f["quelle"], "blog": url, "ablauf": f.get("ablauf") or "",
                 "status": "offen", "gepostet_am": "",
             })

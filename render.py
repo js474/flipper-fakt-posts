@@ -27,6 +27,10 @@ def tokens(text):
     """-> list of paragraphs, each a list of (word, accent)"""
     paras = []
     for p in text.split("\n"):
+        p = p.strip()
+        bullet = p.startswith("• ")
+        if bullet:
+            p = p[2:]
         words, acc, prev_space = [], False, True
         for part in re.split(r"(\*\*)", p):
             if part == "**":
@@ -40,30 +44,33 @@ def tokens(text):
                 else:
                     words.append((w, acc, False))
             prev_space = part[-1].isspace()
-        paras.append(words)
+        paras.append((words, bullet))
     return paras
 
 def layout(paras, font, maxw, d):
+    """Zeilen: ("line", segs, x_offset, bullet_first) oder ("gap", big)"""
     lines = []
-    for raw in paras:
+    ind = int(d.textlength("•  ", font=font))
+    for i, (raw, bullet) in enumerate(paras):
         words = []  # jedes Wort = Liste von Segmenten (text, accent)
         for w, a, g in raw:
             if g and words:
                 words[-1].append((w, a))
             else:
                 words.append([(w, a)])
-        cur, cw = [], 0
+        off = ind if bullet else 0
+        cur, cw, first = [], 0, True
         sp = d.textlength(" ", font=font)
         for segs in words:
-            w, a = segs, None
             ww = sum(d.textlength(s, font=font) for s, _ in segs)
-            if cur and cw + sp + ww > maxw:
-                lines.append(cur); cur, cw = [], 0
+            if cur and cw + sp + ww > maxw - off:
+                lines.append(("line", cur, off, bullet and first)); cur, cw, first = [], 0, False
             cw += (sp if cur else 0) + ww
             cur.append(segs)
-        lines.append(cur)
-        lines.append(None)  # Absatz
-    return lines[:-1]
+        lines.append(("line", cur, off, bullet and first))
+        if i < len(paras) - 1:
+            lines.append(("gap", not (bullet and paras[i + 1][1])))
+    return lines
 
 def render(cfg, out):
     t = THEMES[cfg.get("theme", "weiss")]
@@ -73,18 +80,18 @@ def render(cfg, out):
 
     # Text setzen, Größe so wählen, dass der Block passt
     maxw = W - 2 * PAD
-    for size in range(60, 34, -2):
+    for size in range(60, 33, -2):
         font = ImageFont.truetype(F + "Montserrat-600.ttf", size)
-        lh, gap = int(size * 1.38), int(size * 0.75)
+        lh, gap, sgap = int(size * 1.36), int(size * 0.75), int(size * 0.35)
         lines = layout(tokens(cfg["text"]), font, maxw, d)
-        th = sum(gap if l is None else lh for l in lines)
-        if th <= 760:
+        th = sum(lh if l[0] == "line" else (gap if l[1] else sgap) for l in lines)
+        if th <= 800:
             break
 
     head_h, head_gap, foot_gap = 160, 60, 56
     meta_font = ImageFont.truetype(F + "Montserrat-500.ttf", 30)
     block = head_h + head_gap + th + foot_gap + 110
-    y0 = (H - block) // 2 - 20
+    y0 = max(50, (H - block) // 2 - 20)
 
     # Avatar: Profilfoto im Kreis
     av = 160
@@ -110,10 +117,13 @@ def render(cfg, out):
     y = y0 + head_h + head_gap
     sp = d.textlength(" ", font=font)
     for l in lines:
-        if l is None:
-            y += gap; continue
-        x = PAD
-        for segs in l:
+        if l[0] == "gap":
+            y += gap if l[1] else sgap; continue
+        _, segs_list, off, bfirst = l
+        if bfirst:
+            d.text((PAD, y), "•", font=font, fill=t["accent"])
+        x = PAD + off
+        for segs in segs_list:
             for s, a in segs:
                 d.text((x, y), s, font=font, fill=t["accent"] if a else t["text"])
                 x += d.textlength(s, font=font)
