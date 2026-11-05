@@ -2,7 +2,7 @@ name: Taeglicher Fakt-Post
 
 on:
   schedule:
-    - cron: "17 8 * * *"    # Post um 11:47 auf allen Kanälen
+    - cron: "23 3 * * *"    # Start früh, GitHub verzögert geplante Läufe oft um Stunden. Post geht um 11:47 raus
   push:
     branches: [test-run]   # Push auf diesen Branch = Testlauf als Entwurf
   workflow_dispatch:
