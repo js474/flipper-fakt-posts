@@ -145,6 +145,11 @@ def claude(prompt):
     return json.loads(m.group(0)) if m else []
 
 
+def caps(s):
+    """Nach Doppelpunkt immer groß weiterschreiben."""
+    return re.sub(r":(\s+)(\*\*)?([a-zäöü])", lambda m: ":" + m.group(1) + (m.group(2) or "") + m.group(3).upper(), s)
+
+
 def norm(s):
     return re.sub(r"[^a-z0-9äöüß]", "", s.lower())
 
@@ -202,8 +207,8 @@ def main():
             if not valid(f, facts):
                 continue
             facts.append({
-                "id": f"{next_id:03d}", "text": f["text"].strip(), "kategorie": f.get("kategorie", ""),
-                "caption": f.get("caption", "").strip(),
+                "id": f"{next_id:03d}", "text": caps(f["text"].strip()), "kategorie": f.get("kategorie", ""),
+                "caption": caps(f.get("caption", "").strip()),
                 "quelle": f["quelle"], "blog": url, "ablauf": f.get("ablauf") or "",
                 "status": "offen", "gepostet_am": "",
             })
