@@ -1,6 +1,6 @@
 # Flippɘr Fakt-Posts
 
-Postet jeden Tag einen Fakt im Tweet-Format auf Instagram, Facebook, LinkedIn, X und im Google Unternehmensprofil (über Metricool, Marke flipper.immo).
+Postet jeden Tag einen Fakt im Tweet-Format auf Instagram, Facebook, LinkedIn, X, Threads und im Google Unternehmensprofil (über Metricool, Marke flipper.immo).
 
 ## So läuft es
 
@@ -10,6 +10,7 @@ Postet jeden Tag einen Fakt im Tweet-Format auf Instagram, Facebook, LinkedIn, X
    - Instagram und Facebook: Text, CTA „Tools“, Hashtags, kein Link
    - LinkedIn und Google: Text und Link zum Blogartikel
    - X: Bild mit Text und Link; ist der Text zu lang, Bild mit Kurztext und Link
+   - Threads: Bild mit Bildtext (max. 500 Zeichen), ohne Link
 4. Der Eintrag bekommt `status: gepostet`.
 
 ## Fakt-Bank füllt sich selbst

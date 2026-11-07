@@ -130,6 +130,7 @@ def base_post(text, image, when, networks):
         "linkedin": ("linkedinData", {"type": "post", "previewIncluded": False}),
         "twitter": ("twitterData", {"tags": []}),
         "gmb": ("gmbData", {"type": "publication"}),
+        "threads": ("threadsData", {"type": "POST", "replyControl": "EVERYONE"}),
     }
     for n in networks:
         k, v = data[n]
@@ -169,6 +170,9 @@ def cmd_schedule():
         first = txt.split("\n")[0]
         x_text = f"{first}\n\n{link}" if len(first) + 50 <= 280 else link
     posts.append((x_text, ["twitter"]))
+    # Threads: max. 500 Zeichen, Bildtext ohne Link (Link kostet Reichweite)
+    th = txt if len(txt) <= 500 else txt[:500].rsplit("\n", 1)[0]
+    posts.append((th, ["threads"]))
     only = [n.strip() for n in os.environ.get("NETWORKS", "").split(",") if n.strip()]
     if only:
         posts = [(t, [n for n in nets if n in only]) for t, nets in posts]
