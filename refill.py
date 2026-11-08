@@ -23,7 +23,7 @@ PROCESSED = os.path.join(ROOT, "processed.json")
 SITEMAP = "https://www.flipperimmo.com/sitemap.xml"
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
 MAX_ARTICLES_PER_RUN = 20
-SLOP = re.compile(r"entscheidend|essenziell|unerlässlich|maßgeblich|spannend|gamechanger|im blick behalten|nicht unterschätzen|a und o|schlüssel zum erfolg|praxisregel:|fazit:|!", re.I)
+SLOP = re.compile(r"kurz gesagt|unterm strich|am ende des tages|hier ist der|die wahrheit ist|was viele nicht wissen|nicht nur .{1,60} sondern|experten sagen|studien zeigen|\? [A-ZÄÖÜ][a-zäöü]+\.|entscheidend|essenziell|unerlässlich|maßgeblich|spannend|gamechanger|im blick behalten|nicht unterschätzen|a und o|schlüssel zum erfolg|praxisregel:|fazit:|!", re.I)
 BANNED = re.compile(r"coaching|coach\b|leverage|—|–", re.I)
 UA = {"User-Agent": "Mozilla/5.0 (fakt-bot; +https://www.flipperimmo.com)"}
 
@@ -116,6 +116,17 @@ SPRACHE (hart):
 - Nach einem Doppelpunkt groß weiterschreiben.
 - Verboten: Gedankenstriche, Floskeln, Punchlines, rhetorische Fragen, Ausrufezeichen, Einleitungen wie "Praxisregel:", "Beim Fix and Flip gilt", "Wichtig:", "Tipp:", "Fazit:". Verboten sind auch Wörter wie "entscheidend", "essenziell", "unerlässlich", "maßgeblich", "spannend", "Gamechanger", "clever", "smart", "nachhaltig", "im Blick behalten", "nicht unterschätzen", "A und O", "Schlüssel zum Erfolg".
 - Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
+- Deslop, gilt für Bildtext und Beitragstext:
+  * Kein Anlauf vor der Aussage ("Hier ist der Punkt", "Kurz gesagt", "Die Wahrheit ist", "Was viele nicht wissen"). Direkt mit der Sache beginnen.
+  * Keine Kontrast-Formeln ("nicht X, sondern Y", "Nicht A. Nicht B. Sondern C."). Y direkt sagen.
+  * Keine Frage, die du sofort selbst beantwortest ("Das Ergebnis? Teuer."). Als Aussage schreiben.
+  * Keine abgehackten Fragmente für Dramatik, keine Pointe als letzter Satz eines Absatzes.
+  * Aktiv mit handelnder Person: "du", "die Bank", "der Handwerksbetrieb", "wir". Kein Passiv, wenn ein Handelnder benennbar ist.
+  * Keine Füllwörter und Adverbien ohne Inhalt ("wirklich", "einfach", "eigentlich", "letztlich", "grundsätzlich", "durchaus", "schlichtweg").
+  * Keine vagen Aussagen ("Das hat Folgen", "Die Gründe sind vielfältig"). Die konkrete Folge oder den konkreten Grund nennen.
+  * Keine erfundenen Quellen ("Experten sagen", "Studien zeigen") ohne Namen aus dem Artikel.
+  * Satzlängen variieren, nicht drei gleich lange Sätze hintereinander. Keine Dreier-Aufzählung aus Gewohnheit im Fließtext.
+  * Keine Absatz-Zusammenfassungen am Ende ("Unterm Strich", "Am Ende des Tages", "Das zeigt").
 
 ANTWORT: nur ein JSON-Array, sonst nichts:
 [{{"text": "...", "caption": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "Primärquelle aus dem Artikel oder Flippɘr-Blog", "ablauf": "JJJJ-MM-TT oder leer"}}]
