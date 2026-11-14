@@ -307,7 +307,8 @@
     "blog": "https://www.flipperimmo.com/blog/versicherung-sanierung-baustelle-fix-and-flip",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "031",
@@ -318,7 +319,8 @@
     "blog": "https://www.flipperimmo.com/blog/versicherung-sanierung-baustelle-fix-and-flip",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "032",
@@ -329,7 +331,8 @@
     "blog": "https://www.flipperimmo.com/blog/wann-immobilie-nach-sanierung-verkaufen",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "033",
@@ -340,7 +343,8 @@
     "blog": "https://www.flipperimmo.com/blog/wann-immobilie-nach-sanierung-verkaufen",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "034",
@@ -351,7 +355,8 @@
     "blog": "https://www.flipperimmo.com/blog/bonitaet-kommt-immer-von-dir-egal-welches-konstrukt",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "035",
@@ -362,7 +367,8 @@
     "blog": "https://www.flipperimmo.com/blog/aufschluesselung-kosten-fix-and-flip-bank-finanzierung",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "036",
@@ -373,7 +379,8 @@
     "blog": "https://www.flipperimmo.com/blog/aufschluesselung-kosten-fix-and-flip-bank-finanzierung",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
   },
   {
     "id": "037",
@@ -384,6 +391,91 @@
     "blog": "https://www.flipperimmo.com/blog/dreistestes-angebot-bad-renovierung",
     "ablauf": "",
     "status": "offen",
-    "gepostet_am": ""
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "038",
+    "text": "Der Brückenfinanzierungszins liegt im November 2026 bei **4,7 bis 5,2 %**: EURIBOR 12M plus 1,5 bis 2 Prozentpunkte Aufschlag.\n• EURIBOR 12M: **3,20 %** (Stand 10.11.2026), also 3,20 + 1,5 = 4,7 und 3,20 + 2,0 = 5,2\n• Bauzinsen bei 10 Jahren Zinsbindung: 3,9 bis 4,2 % effektiv, je nach Anbieter\n• Die Bauzinsen lagen Ende Oktober noch über 4,5 %, zum 10. November haben KfW und BHW gesenkt\n• Am Brückenzins ändert das nichts, er bleibt bei 4,7 bis 5,2 %",
+    "kategorie": "markt",
+    "caption": "Die Bauzinsen aus den Nachrichten gelten für zehn Jahre Zinsbindung. Für die Monate zwischen Kauf und Verkauf brauchst du aber den Brückenzins, und der liegt mit 4,7 bis 5,2 % über den 3,9 bis 4,2 % einer Zehnjahresbindung.\n\nNimm 200.000 € Darlehen und sechs Monate Laufzeit, vereinfacht nur mit Zinsen und ohne Gebühren: Bei 4,7 % zahlst du 9.400 € im Jahr, für sechs Monate also 4.700 €. Bei 5,2 % sind es 10.400 € im Jahr und 5.200 € für sechs Monate. Zwischen den beiden Enden der Spanne liegen 500 €.\n\nFrag bei der Bank zuerst nach dem Aufschlag auf den EURIBOR. 1,5 Punkte ergeben 4,7 %, 2 Punkte ergeben 5,2 %. Liegt noch kein schriftliches Angebot vor, kalkulierst du mit dem oberen Wert. Dauert der Verkauf länger als geplant, kommen bei 200.000 € und 5,2 % rund 867 € Zinsen pro Monat dazu.",
+    "quelle": "baufinanz-mv.de / Finanztip",
+    "blog": "https://www.flipperimmo.com/blog/flipper-news-11-11-2026-kommunale-immobilien-etw-preise-inflation",
+    "ablauf": "2027-05-10",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "039",
+    "text": "Bei 100 Eigentümerbriefen kommen **ein bis drei Gespräche** zurück.\n• Die Rücklaufquote liegt typischerweise bei **1 bis 3 %**, deshalb planst du 50 bis 100 Briefe pro Monat\n• Am besten wirkt er bei älteren Eigentümern, Erbengemeinschaften und vermieteten Objekten mit Sanierungsstau\n• Als Rückkanal steht eine Telefonnummer im Brief, kein Kontaktformular\n• Ein einziger Deal kann **20.000 bis 40.000 €** Gewinn bringen",
+    "kategorie": "praxis",
+    "caption": "Die Adressen findest du über mehrere Wege: Grundbuchämter kommen nur bei berechtigtem Interesse in Frage, dazu Klingelschilder, Hausverwaltungen, öffentliche Verzeichnisse, Katasterämter und bei Wohnungseigentum die Eigentümerversammlungen.\n\nIm Brief erklärst du, warum du schreibst: Du suchst Immobilien in genau dieser Lage. Die Ansprache ist persönlich, damit der Brief nicht nach Massenversand aussieht. Du sicherst Diskretion zu und setzt weder Druck noch ein Zeitlimit. Ein Firmenbriefkopf gehört dazu, sonst wirkt der Brief unprofessionell.\n\nRechnerisch sieht das so aus: 50 Briefe im Monat ergeben bei 1 bis 3 % ein halbes bis eineinhalb Gespräche, bei 100 Briefen sind es eins bis drei. Deshalb brauchst du eine kritische Masse an Briefen.\n\nEin Brief allein reicht selten. Der zweite oder dritte Kontakt bringt oft den Deal, also planst du das Nachfassen von Anfang an ein. Meldet sich jemand, hilft ein Telefonleitfaden mit Baujahr, Größe, Zustand, Mieter, Hausgeld und bekannten Mängeln, damit du keine Frage vergisst.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/akquise-vorlagen-maklermail-eigentuemerbrief-telefonleitfaden",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "040",
+    "text": "Eine Maklermail muss in **30 Sekunden** zeigen, dass du ernsthaft kaufst.\n• Suchprofil mit Zahlen, zum Beispiel: Wohnungen, 40 bis 80 qm, sanierungsbedürftig, Ruhrgebiet, bis 150.000 €\n• Als Nachweis taugen eine Finanzierungszusage oder verfügbares Eigenkapital\n• Im Profil stehen zwei Sätze dazu, was du machst und wie viele Objekte du pro Jahr kaufst oder kaufen willst\n• Bei **zwei bis drei** regionalen Maklern als verlässlicher Käufer bekommst du Objekte vor dem Inserat",
+    "kategorie": "praxis",
+    "caption": "Makler bekommen täglich Anfragen. Sie wollen aus deiner Mail zwei Dinge herauslesen: Kauft diese Person, und kann sie schnell entscheiden? Wenn beides klar wird, landest du auf der Liste.\n\nAm Ende der Mail stehen die nächsten Schritte, also deine Telefonnummer und wann du für Besichtigungen Zeit hast. Romane und Selbstdarstellung lässt du weg. Rechtschreibfehler kosten dich sofort Glaubwürdigkeit, die Mail ist dein erstes Vorstellungsgespräch.\n\nZur Menge: Starte mit 5 bis 10 Maklern in deiner Zielregion. Bei Maklern zählt Qualität, drei gute Kontakte zu pflegen bringt mehr als 20 Massen-Mails. Danach meldest du dich regelmäßig, denn Makler vergessen dich nach etwa einer Woche, wenn nichts mehr von dir kommt.\n\nAuch ohne viele abgeschlossene Deals kannst du überzeugen. Kaufbereitschaft und schnelle Entscheidungsfähigkeit zählen bei Maklern mehr als Erfahrung.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/akquise-vorlagen-maklermail-eigentuemerbrief-telefonleitfaden",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "041",
+    "text": "Objekte vor **1993** können Asbest enthalten, vor 1978 teils auch Holzschutzmittel mit PCP oder Lindan.\n• Asbest steckt in Fassadenplatten, Bodenbelägen, Nachtspeicher-Dämmmaterial und Rohrummantelungen\n• Bei Verdacht lässt du eine Probe nehmen, die Analyse kostet **50 bis 100 €** pro Probe\n• Flächiger Asbest in Fassade oder Fußbodenplatten kann die Sanierungskosten **verdoppeln**",
+    "kategorie": "praxis",
+    "caption": "Bei einem Objekt vor 1993 gehen wir Fassade, Böden, Nachtspeicheröfen und Rohrleitungen einzeln durch und fotografieren jeden Verdachtsfall, die Bilder nummeriert nach Räumen. Nachtspeicheröfen sind ohnehin ein Kostenfresser und beim Verkauf ein Minuspunkt. Steckt Asbest im Dämmmaterial, kommt der Rückbau noch dazu.\n\nFür die Kalkulation zählt die Menge. Einzelne Rohre mit Asbestummantelung lassen sich fachgerecht entfernen. Besteht aber die komplette Fassade aus Asbestzementplatten oder enthält der Fußbodenaufbau im ganzen Objekt asbesthaltiges Material, reden wir schnell von fünfstelligen Entsorgungskosten allein für den Rückbau. In diesem Fall steigen wir aus.\n\nTapeten abreißen oder Bodenbeläge hochheben ist bei der normalen Besichtigung eher nicht erlaubt. Wer ernsthaft kaufen will, vereinbart einen zweiten Termin mit einem Handwerksbetrieb und nimmt dort gezielt Stichproben. Ein Gutachter kostet 500 bis 1.500 €. Bei möglichem Asbestbefall lohnt er sich, sobald eine falsche Einschätzung fünfstellig würde.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/besichtigung-sanierungsobjekt-checkliste-komplett",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "042",
+    "text": "Eine 60-m²-Wohnung landet in der Schnellkalkulation bei rund **27.500 €** Sanierungskosten, Puffer eingerechnet.\n• Bad neu 10.000 €, Küchenanschlüsse 4.000 €, Vinylboden 2.400 €\n• Maler 2.500 €, Elektro als Teilsanierung 3.500 €, fünf Türen 1.500 €\n• Zwischensumme der Gewerke: **23.900 €**\n• Darauf **15 % Puffer** sind 3.585 €, im Beispiel gerundet auf 3.600 €",
+    "kategorie": "rechnung",
+    "caption": "Die Posten stammen aus den Faustformeln pro Gewerk. Bad komplett neu liegt bei 8.000 bis 15.000 € pro Bad, die Küche ohne Möbel mit Anschlüssen bei 3.000 bis 6.000 €. Beim Boden rechnen wir 30 bis 60 € pro m² inklusive Verlegung, die 2.400 € im Beispiel entsprechen bei 60 m² also 40 € pro m². Maler kostet 8 bis 15 € pro m² Wandfläche.\n\nDie Elektrik steht hier nur als Teilsanierung drin. Eine komplette Erneuerung liegt bei 80 bis 120 € pro m² Wohnfläche, bei 60 m² also zwischen 4.800 und 7.200 €. Fenster fehlen in der Rechnung. Müssen welche getauscht werden, kommen 400 bis 700 € pro Fenster dazu.\n\nDer Puffer liegt in der Faustformel bei 10 bis 15 % auf die geschätzten Gesamtkosten. Mit 10 % wäre das Beispiel bei 26.290 € gelandet, mit 15 % bei 27.485 €. Bei einem Objekt, in dem vieles nicht sichtbar ist, planen wir den oberen Wert ein.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/besichtigung-sanierungsobjekt-checkliste-komplett",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "043",
+    "text": "Das Titelbild entscheidet über den Klick. Dafür kommt der beste Raum bei Tageslicht an die erste Stelle.\n• Wohnzimmer oder offener Wohn-Essbereich, nie Bad, Flur oder Schlafzimmer\n• Mindestens **15** Fotos, Reihenfolge: Wohnzimmer, Küche, Schlafzimmer, Bad, weitere Räume, Balkon, Grundriss\n• Ein Immobilienfotograf kostet **200 bis 400 €**\n• Weitwinkel nur so weit, dass die Räume nicht unrealistisch groß wirken",
+    "kategorie": "praxis",
+    "caption": "Der häufigste Fehler nach der Sanierung sind Handyfotos bei Kunstlicht, auf denen im Hintergrund noch Baustellenmüll liegt. Dann bekommt eine frisch sanierte Wohnung nicht die Aufmerksamkeit, die sie verdient, obwohl das Geld längst in der Sanierung steckt.\n\nVor dem Fototermin räumst du auf und stylst die Räume. Der Termin liegt bei Tageslicht, und der Fotograf nimmt jeden Raum aus der besten Perspektive auf.\n\nZum Paket gehört der Grundriss. Er sollte maßstabsgetreu sein, mit Raumbezeichnungen und Quadratmeterangaben. Ein digitaler Grundriss kostet 50 bis 100 €, und viele Immobilienfotografen bieten Fotos und Grundriss zusammen an. Käufer wollen die Raumaufteilung verstehen, bevor sie eine Besichtigung buchen, und viele Portale priorisieren Inserate mit Grundriss in den Suchergebnissen.\n\nFotograf und Grundriss zusammen kommen auf 250 bis 500 €. Der Grundriss steht als letztes Bild in der Reihenfolge, nach dem Balkon oder Außenbereich.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/expose-vorlagen-fix-und-flip-verkauf",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
+  },
+  {
+    "id": "044",
+    "text": "Home Staging lohnt sich ab **200.000 €** Verkaufspreis.\n• Professionelles Staging kostet **1.500 bis 3.000 €**\n• Es kann den Verkaufspreis um 5 bis 10 % steigern, bei 200.000 € sind das 10.000 bis 20.000 €\n• Kleinere Wohnungen: Saubere, leere Räume mit guten Fotos\n• Ein paar Dekoartikel und Handtücher im Bad reichen oft aus",
+    "kategorie": "rechnung",
+    "caption": "Die Rechnung für eine Wohnung zu 200.000 €: 5 % Aufschlag sind 10.000 €, 10 % sind 20.000 €. Dem stehen 1.500 bis 3.000 € Stagingkosten gegenüber. Im ungünstigsten Fall der Spanne, also 5 % Aufschlag bei 3.000 € Kosten, bleiben 7.000 €. Im günstigsten Fall, 10 % Aufschlag bei 1.500 € Kosten, sind es 18.500 €. Der Aufschlag ist eine Spanne und kein Versprechen, die Kosten solltest du deshalb vorher fest anfragen.\n\nUnter 200.000 € Verkaufspreis rechnet sich das volle Staging meist nicht. Dann reichen saubere, leere Räume mit guten Fotos. Im Bad helfen ein paar Handtücher, im Wohnbereich wenige Dekoartikel.\n\nDas Titelbild soll aufgeräumt und gestylt sein, am besten ein Wohnzimmer oder ein offener Wohn-Essbereich. Bei Wohnungen ab der 200.000-€-Grenze lohnt es sich, Staging und Fototermin gemeinsam zu planen, damit die gestylten Räume auch auf den Bildern ankommen.",
+    "quelle": "Flippɘr-Blog",
+    "blog": "https://www.flipperimmo.com/blog/expose-vorlagen-fix-und-flip-verkauf",
+    "ablauf": "",
+    "status": "offen",
+    "gepostet_am": "",
+    "lektoriert": true
   }
 ]
