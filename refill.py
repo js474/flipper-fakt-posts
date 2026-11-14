@@ -175,7 +175,7 @@ def claude(prompt):
     key = os.environ["ANTHROPIC_API_KEY"]
     body = {
         "model": MODEL,
-        "max_tokens": 6000,
+        "max_tokens": 8000,
         "messages": [{"role": "user", "content": prompt}],
     }
     req = urllib.request.Request(
@@ -187,11 +187,27 @@ def claude(prompt):
     with urllib.request.urlopen(req, timeout=180) as r:
         res = json.loads(r.read().decode())
     text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
-    m = re.search(r"\[\s*(\{.*\})?\s*\]", text, re.S)
-    return json.loads(m.group(0)) if m else []
+    return parse_json(text, res.get("stop_reason"))
 
 
-LEKTORAT = """Du bist Lektor für die Social-Media-Posts von Flippɘr (Fix & Flip, Immobilienhandel). Unten stehen Posts als JSON. Überarbeite "text" und "caption" streng nach diesen Regeln:
+def parse_json(text, stop=None):
+    """Erstes gültiges JSON-Array oder -Objekt im Text finden."""
+    dec = json.JSONDecoder()
+    for i, ch in enumerate(text):
+        if ch in "[{":
+            try:
+                val, _ = dec.raw_decode(text[i:])
+            except ValueError:
+                continue
+            if isinstance(val, dict) and "text" in val:
+                return [val]
+            if isinstance(val, list) and (not val or isinstance(val[0], dict)):
+                return val
+    print(f"Kein JSON in Antwort (stop_reason={stop}): {text[:300]!r}")
+    return []
+
+
+LEKTORAT = """Du bist Lektor für die Social-Media-Posts von Flippɘr (Fix & Flip, Immobilienhandel). Unten steht ein Post als JSON. Überarbeite "text" und "caption" streng nach diesen Regeln:
 
 {stil}
 
@@ -205,25 +221,26 @@ HARTE GRENZEN
 - Format bleibt: "text" beginnt mit der Kernaussage, danach 3 bis 4 Zeilen mit "• ", getrennt durch \\n, 300 bis 520 Zeichen ohne Markierungen, höchstens drei **Markierungen**. "caption" 700 bis 1300 Zeichen, Absätze mit \\n\\n.
 - Alle anderen Felder unverändert zurückgeben.
 
-ANTWORT: nur das JSON-Array in derselben Reihenfolge, sonst nichts.
+ANTWORT: nur das überarbeitete JSON-Objekt mit allen Feldern, sonst nichts. Keine Bewertung, keine Erklärung, kein Codeblock.
 
-POSTS:
+POST:
 {posts}
 """
 
 
 def lektorat(posts):
-    """Zweiter Durchgang: Sprache menschlich machen, Inhalt bleibt."""
-    if not posts:
-        return posts
-    try:
-        out = claude(LEKTORAT.format(stil=STIL, posts=json.dumps(posts, ensure_ascii=False, indent=1)))
-    except Exception as e:
-        print("Lektorat fehlgeschlagen, Original bleibt:", e)
-        return posts
-    if len(out) != len(posts):
-        print("Lektorat lieferte andere Anzahl, Original bleibt")
-        return posts
+    """Zweiter Durchgang pro Post: Sprache menschlich machen, Inhalt bleibt."""
+    out = []
+    for p in posts:
+        try:
+            res = claude(LEKTORAT.format(stil=STIL, posts=json.dumps(p, ensure_ascii=False, indent=1)))
+        except Exception as e:
+            print("Lektorat fehlgeschlagen, Original bleibt:", e)
+            res = []
+        n = res[0] if res and isinstance(res[0], dict) and res[0].get("text") else None
+        if n is None:
+            print("Lektorat ohne Ergebnis, Original bleibt")
+        out.append({**p, **n} if n else p)
     return out
 
 
@@ -258,21 +275,26 @@ def main():
     processed = set(load(PROCESSED, []))
     processed |= {f["blog"] for f in facts if f.get("blog") and f.get("status") == "gepostet"}
     open_ = lambda: sum(1 for f in facts if f.get("status") == "offen")
+    todo = [f for f in facts if f.get("status") == "offen" and not f.get("lektoriert")]
+    changed = 0
+    for f in todo:
+        n = lektorat([{"text": f["text"], "caption": f.get("caption", "")}])[0]
+        if n["text"] == f["text"]:
+            continue  # kein Ergebnis, nächster Lauf versucht es erneut
+        cand = {**f, "text": n["text"], "caption": n.get("caption", "")}
+        if valid(cand, [x for x in facts if x is not f]):
+            f["text"], f["caption"] = caps(n["text"].strip()), caps(n.get("caption", "").strip())
+            changed += 1
+        else:
+            print("Lektorat verworfen (Regeln verletzt):", f["id"])
+        f["lektoriert"] = True
+        dump(FACTS, facts)
+    if todo:
+        print(f"{changed}/{len(todo)} offene Fakten nachlektoriert")
     if open_() >= target:
         print(f"{open_()} offene Fakten, nichts zu tun")
         return
     rules = open(os.path.join(ROOT, "REGELN.md"), encoding="utf-8").read()
-    todo = [f for f in facts if f.get("status") == "offen" and not f.get("lektoriert")]
-    for i in range(0, len(todo), 4):
-        chunk = todo[i:i + 4]
-        res = lektorat([{"text": f["text"], "caption": f.get("caption", "")} for f in chunk])
-        for f, n in zip(chunk, res):
-            if valid({**f, **n, "text": n.get("text", ""), "quelle": f.get("quelle", "x")}, [x for x in facts if x is not f]):
-                f["text"], f["caption"] = caps(n["text"].strip()), caps(n.get("caption", "").strip())
-            f["lektoriert"] = True
-        dump(FACTS, facts)
-    if todo:
-        print(f"{len(todo)} offene Fakten nachlektoriert")
     today = dt.date.today().isoformat()
     next_id = max([int(f["id"]) for f in facts] + [0]) + 1
     done = 0
@@ -295,11 +317,14 @@ def main():
         except Exception as e:
             print("FEHLER", url, e)
             continue
-        new = lektorat([f for f in new if f.get("text")])
+        raw = [f for f in new if f.get("text")]
+        new = lektorat(raw)
         added = 0
-        for f in new:
+        for f, orig in zip(new, raw):
             if not valid(f, facts):
-                continue
+                f = orig
+                if not valid(f, facts):
+                    continue
             facts.append({
                 "id": f"{next_id:03d}", "text": caps(f["text"].strip()), "kategorie": f.get("kategorie", ""),
                 "caption": caps(f.get("caption", "").strip()),
