@@ -23,7 +23,7 @@ PROCESSED = os.path.join(ROOT, "processed.json")
 SITEMAP = "https://www.flipperimmo.com/sitemap.xml"
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
 MAX_ARTICLES_PER_RUN = 20
-SLOP = re.compile(r"kurz gesagt|unterm strich|am ende des tages|hier ist der|die wahrheit ist|was viele nicht wissen|nicht nur .{1,60} sondern|experten sagen|studien zeigen|\? [A-ZÄÖÜ][a-zäöü]+\.|entscheidend|essenziell|unerlässlich|maßgeblich|spannend|gamechanger|im blick behalten|nicht unterschätzen|a und o|schlüssel zum erfolg|praxisregel:|fazit:|!", re.I)
+SLOP = re.compile(r"es geht nicht um|stell dir vor|kennst du das|klingt bekannt|ganz einfach:|das zeigt|denk mal|wirklich|eigentlich|letztlich|schlichtweg|sozusagen|ganzheitlich|mehrwert|navigieren|meistern|nahtlos|maßgeschneidert|unter die lupe|auf der sicheren seite|ins geld|in der heutigen zeit|mehr denn je|hand aufs herz|coach|—|–|kurz gesagt|unterm strich|am ende des tages|hier ist der|die wahrheit ist|was viele nicht wissen|nicht nur .{1,60} sondern|experten sagen|studien zeigen|\? [A-ZÄÖÜ][a-zäöü]+\.|entscheidend|essenziell|unerlässlich|maßgeblich|spannend|gamechanger|im blick behalten|nicht unterschätzen|a und o|schlüssel zum erfolg|praxisregel:|fazit:|!", re.I)
 BANNED = re.compile(r"coaching|coach\b|leverage|—|–", re.I)
 UA = {"User-Agent": "Mozilla/5.0 (fakt-bot; +https://www.flipperimmo.com)"}
 
@@ -88,6 +88,56 @@ def blog_urls():
     return [u for u, _ in items]
 
 
+STIL = """SPRACHE. Das ist der wichtigste Teil. Jeder Text muss klingen, als hätte ein erfahrener Immobilienpraktiker ihn selbst getippt, nachdem er einem Kollegen auf der Baustelle etwas erklärt hat. Niemand darf beim Lesen den Verdacht bekommen, dass eine KI beteiligt war. Ein Text, der nach KI klingt, ist ein Fehler, auch wenn der Inhalt stimmt.
+
+1. Grundton
+- Deutsch, "du"-Ansprache, sachlich und direkt. Wenn Flippɘr als Absender spricht, dann "wir", nie "ich".
+- Konkret vor allgemein: lieber "die Bank will die letzten drei BWAs sehen" als "Banken prüfen umfangreiche Unterlagen".
+- Substantive, Zahlen und Verben tragen den Text, nicht Adjektive.
+
+2. Rhythmus (hier verraten sich KI-Texte am schnellsten)
+- Satzlängen mischen: kurz, dann länger mit Nebensatz, dann mittel. Nie drei gleich lange Sätze hintereinander.
+- Keine Dreier-Aufzählungen aus Gewohnheit ("schnell, sicher und rentabel"). Zwei Dinge oder eins, drei nur, wenn es wirklich genau drei sind.
+- Absätze enden unterschiedlich. Kein Absatz endet mit einem zusammenfassenden oder "starken" Schlusssatz.
+- Keine Stakkato-Fragmente für Dramatik ("Kein Puffer. Kein Plan. Kein Gewinn.").
+- Nicht jeder Absatz gleich gebaut (Behauptung, Erklärung, Fazit).
+
+3. Verbotene Satzmuster
+- Kontrast-Formeln: "nicht X, sondern Y", "Es geht nicht um X. Es geht um Y.", "Nicht A. Nicht B. Sondern C.", "nicht nur ... sondern auch". Y direkt sagen.
+- Selbst beantwortete Fragen: "Das Ergebnis? Teuer.", "Warum? Ganz einfach:". Als Aussage schreiben.
+- Rhetorische Fragen jeder Art ("Klingt bekannt?", "Kennst du das?").
+- Anläufe vor der Aussage: "Hier ist der Punkt", "Die Wahrheit ist", "Was viele nicht wissen", "Stell dir vor", "Lass uns", "Kurz gesagt".
+- Partizip-Anhängsel, die Bedeutung behaupten: "..., was zeigt, wie wichtig das ist", "..., wodurch du langfristig profitierst".
+- Schlusssätze: "Unterm Strich", "Am Ende des Tages", "Das zeigt", "Und genau darum geht es", "Denk mal drüber nach".
+- Aphorismen, Merksätze, Punchlines: "Wer X will, muss Y", "Zeit ist Geld", "Im Einkauf liegt der Gewinn".
+
+4. Verbotene Wörter und Wendungen
+- KI-Vokabular: entscheidend, essenziell, unerlässlich, maßgeblich, zentral, wesentlich, nachhaltig, ganzheitlich, spannend, wertvoll, kraftvoll, Mehrwert, Gamechanger, Schlüssel, Reise, Potenzial entfalten, auf das nächste Level, eintauchen, beleuchten, navigieren, meistern, optimal, nahtlos, maßgeschneidert, clever, smart, im Blick behalten, nicht unterschätzen, das A und O, Schlüssel zum Erfolg.
+- Füllwörter: wirklich, einfach, eigentlich, letztlich, grundsätzlich, durchaus, schlichtweg, tatsächlich, quasi, sozusagen, ganz klar, absolut.
+- Floskeln: "ganz unkompliziert", "gerne direkt", "das Wichtigste zum Schluss", "Ziel ist einfach", "in der heutigen Zeit", "mehr denn je", "Hand aufs Herz".
+- Werbesprache: "entdecke", "sichere dir", "einzigartig", "revolutionär".
+- Redewendungen und Idiome jeder Art ("unter die Lupe nehmen", "den Rotstift ansetzen", "auf der sicheren Seite", "ins Geld gehen", "Licht ins Dunkel").
+- Vage Zuschreibungen: "Studien zeigen", "Experten sagen", "viele berichten". Nur Quellen, die im Artikel namentlich stehen.
+- Die Wörter "Coaching" und "Coach".
+
+5. Form
+- Keine Gedankenstriche (– und —), keine Ausrufezeichen, keine Emojis.
+- Nach einem Doppelpunkt immer groß weiterschreiben.
+- Keine Einleitungen wie "Praxisregel:", "Beim Fix and Flip gilt", "Wichtig:", "Tipp:", "Fazit:", "Merke:".
+- Aktiv mit handelnder Person ("du", "die Bank", "der Handwerksbetrieb", "wir"). Passiv nur, wenn niemand handelt.
+- Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite", "Maklerinnen und Makler"), nicht mit Doppelpunkt oder Sternchen.
+- Erste Zeile und Text darunter sagen nie dasselbe zweimal. Bildtext und Beitragstext wiederholen sich nicht.
+
+6. Vorher und nachher (nur für den Ton, Inhalte und Orte aus den Beispielen nie übernehmen)
+- Falsch: "Ein Puffer ist nicht nur sinnvoll, sondern essenziell für deinen Erfolg."
+  Richtig: "Wir rechnen auf jede Renovierung 15 bis 20 % Puffer. Bei der letzten Wohnung in Kempten kam hinter der Vorsatzschale ein feuchter Kamin zum Vorschein."
+- Falsch: "Das Ergebnis? Mehr Marge, weniger Stress."
+  Richtig: "Mit dem Puffer blieb die Marge bei 22 %, obwohl der Kamin 3.800 € gekostet hat."
+- Falsch: "Am Ende des Tages zählt eine saubere Kalkulation."
+  Richtig: Satz streichen, den Absatz mit dem letzten konkreten Punkt enden lassen.
+"""
+
+
 PROMPT = """Du baust Wissens-Posts für Flippɘr (Fix & Flip, Immobilienhandel in Deutschland). Zielgruppe: Leute, die Immobilien kaufen, sanieren und verkaufen wollen oder es schon tun. Sie wollen Praxiswissen, das sie morgen anwenden können.
 
 REGELN:
@@ -111,22 +161,7 @@ INHALT:
 - Keine zwei Posts zum selben Thema. Nur Themen, die für den deutschen Markt gelten. Artikel über Einzelpersonen, Events, Teamvorstellungen oder Produkte geben 0 Posts.
 - Marktzahlen bekommen den Stand-Monat in den Text und ein Ablaufdatum 6 Monate nach Stand.
 
-SPRACHE (hart):
-- Deutsch, "du", sachlich, wie ein erfahrener Praktiker, der einem Kollegen etwas erklärt. Konkrete Substantive und Zahlen statt Adjektive.
-- Nach einem Doppelpunkt groß weiterschreiben.
-- Verboten: Gedankenstriche, Floskeln, Punchlines, rhetorische Fragen, Ausrufezeichen, Einleitungen wie "Praxisregel:", "Beim Fix and Flip gilt", "Wichtig:", "Tipp:", "Fazit:". Verboten sind auch Wörter wie "entscheidend", "essenziell", "unerlässlich", "maßgeblich", "spannend", "Gamechanger", "clever", "smart", "nachhaltig", "im Blick behalten", "nicht unterschätzen", "A und O", "Schlüssel zum Erfolg".
-- Gendergerecht über neutrale Formen ("wer verkauft", "die Verkäuferseite"), nicht mit Doppelpunkt oder Sternchen.
-- Deslop, gilt für Bildtext und Beitragstext:
-  * Kein Anlauf vor der Aussage ("Hier ist der Punkt", "Kurz gesagt", "Die Wahrheit ist", "Was viele nicht wissen"). Direkt mit der Sache beginnen.
-  * Keine Kontrast-Formeln ("nicht X, sondern Y", "Nicht A. Nicht B. Sondern C."). Y direkt sagen.
-  * Keine Frage, die du sofort selbst beantwortest ("Das Ergebnis? Teuer."). Als Aussage schreiben.
-  * Keine abgehackten Fragmente für Dramatik, keine Pointe als letzter Satz eines Absatzes.
-  * Aktiv mit handelnder Person: "du", "die Bank", "der Handwerksbetrieb", "wir". Kein Passiv, wenn ein Handelnder benennbar ist.
-  * Keine Füllwörter und Adverbien ohne Inhalt ("wirklich", "einfach", "eigentlich", "letztlich", "grundsätzlich", "durchaus", "schlichtweg").
-  * Keine vagen Aussagen ("Das hat Folgen", "Die Gründe sind vielfältig"). Die konkrete Folge oder den konkreten Grund nennen.
-  * Keine erfundenen Quellen ("Experten sagen", "Studien zeigen") ohne Namen aus dem Artikel.
-  * Satzlängen variieren, nicht drei gleich lange Sätze hintereinander. Keine Dreier-Aufzählung aus Gewohnheit im Fließtext.
-  * Keine Absatz-Zusammenfassungen am Ende ("Unterm Strich", "Am Ende des Tages", "Das zeigt").
+{stil}
 
 ANTWORT: nur ein JSON-Array, sonst nichts:
 [{{"text": "...", "caption": "...", "kategorie": "recht|markt|praxis|rechnung", "quelle": "Primärquelle aus dem Artikel oder Flippɘr-Blog", "ablauf": "JJJJ-MM-TT oder leer"}}]
@@ -154,6 +189,42 @@ def claude(prompt):
     text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
     m = re.search(r"\[\s*(\{.*\})?\s*\]", text, re.S)
     return json.loads(m.group(0)) if m else []
+
+
+LEKTORAT = """Du bist Lektor für die Social-Media-Posts von Flippɘr (Fix & Flip, Immobilienhandel). Unten stehen Posts als JSON. Überarbeite "text" und "caption" streng nach diesen Regeln:
+
+{stil}
+
+VORGEHEN
+1. Durchgang: Geh jeden Satz gegen die Abschnitte 2 bis 5 durch. Jeden Treffer schreibst du um, statt nur ein Wort zu tauschen.
+2. Durchgang: Lies jeden Text, als würdest du ihn laut vorlesen. Würde ein erfahrener Praktiker das genau so zu einem Kollegen sagen? Wenn nein, umschreiben.
+3. Bewerte jeden Text von 1 bis 10 bei "klingt nach einem echten Menschen". Unter 9: neu schreiben.
+
+HARTE GRENZEN
+- Fakten, Zahlen, Paragraphen, Fristen und Rechenwege bleiben exakt gleich. Nichts hinzuerfinden, nichts weglassen, was eine Zahl trägt.
+- Format bleibt: "text" beginnt mit der Kernaussage, danach 3 bis 4 Zeilen mit "• ", getrennt durch \\n, 300 bis 520 Zeichen ohne Markierungen, höchstens drei **Markierungen**. "caption" 700 bis 1300 Zeichen, Absätze mit \\n\\n.
+- Alle anderen Felder unverändert zurückgeben.
+
+ANTWORT: nur das JSON-Array in derselben Reihenfolge, sonst nichts.
+
+POSTS:
+{posts}
+"""
+
+
+def lektorat(posts):
+    """Zweiter Durchgang: Sprache menschlich machen, Inhalt bleibt."""
+    if not posts:
+        return posts
+    try:
+        out = claude(LEKTORAT.format(stil=STIL, posts=json.dumps(posts, ensure_ascii=False, indent=1)))
+    except Exception as e:
+        print("Lektorat fehlgeschlagen, Original bleibt:", e)
+        return posts
+    if len(out) != len(posts):
+        print("Lektorat lieferte andere Anzahl, Original bleibt")
+        return posts
+    return out
 
 
 def caps(s):
@@ -191,6 +262,17 @@ def main():
         print(f"{open_()} offene Fakten, nichts zu tun")
         return
     rules = open(os.path.join(ROOT, "REGELN.md"), encoding="utf-8").read()
+    todo = [f for f in facts if f.get("status") == "offen" and not f.get("lektoriert")]
+    for i in range(0, len(todo), 4):
+        chunk = todo[i:i + 4]
+        res = lektorat([{"text": f["text"], "caption": f.get("caption", "")} for f in chunk])
+        for f, n in zip(chunk, res):
+            if valid({**f, **n, "text": n.get("text", ""), "quelle": f.get("quelle", "x")}, [x for x in facts if x is not f]):
+                f["text"], f["caption"] = caps(n["text"].strip()), caps(n.get("caption", "").strip())
+            f["lektoriert"] = True
+        dump(FACTS, facts)
+    if todo:
+        print(f"{len(todo)} offene Fakten nachlektoriert")
     today = dt.date.today().isoformat()
     next_id = max([int(f["id"]) for f in facts] + [0]) + 1
     done = 0
@@ -208,11 +290,12 @@ def main():
         done += 1
         try:
             art = article_text(url)
-            new = claude(PROMPT.format(rules=rules, today=today, url=url, article=art[:30000],
+            new = claude(PROMPT.format(stil=STIL, rules=rules, today=today, url=url, article=art[:30000],
                                        max_facts=1 if news else 2))
         except Exception as e:
             print("FEHLER", url, e)
             continue
+        new = lektorat([f for f in new if f.get("text")])
         added = 0
         for f in new:
             if not valid(f, facts):
@@ -221,7 +304,7 @@ def main():
                 "id": f"{next_id:03d}", "text": caps(f["text"].strip()), "kategorie": f.get("kategorie", ""),
                 "caption": caps(f.get("caption", "").strip()),
                 "quelle": f["quelle"], "blog": url, "ablauf": f.get("ablauf") or "",
-                "status": "offen", "gepostet_am": "",
+                "status": "offen", "gepostet_am": "", "lektoriert": True,
             })
             next_id += 1
             added += 1

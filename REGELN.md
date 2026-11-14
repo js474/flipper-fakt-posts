@@ -30,7 +30,7 @@ Gilt für jeden Eintrag in `facts.json`, egal ob von Hand oder automatisch aus d
 - Beitragstext (`caption`) 700 bis 1300 Zeichen mit Details, die nicht auf dem Bild stehen
 - Ein Thema pro Post, dafür in der Tiefe. Artikel über Personen, Events oder Produkte liefern keine Posts
 - Gendergerecht formulieren, „wir“ statt „ich“, keine Floskeln, keine Punchlines, keine Gedankenstriche
-- Deslop-Regeln: kein Anlauf vor der Aussage, keine „nicht X, sondern Y“-Formeln, keine selbst beantworteten Fragen, aktiv mit handelnder Person, keine Füllwörter, keine vagen Aussagen, keine erfundenen Quellen, keine Schluss-Zusammenfassungen
+- Sprache: Siehe STIL in refill.py (Rhythmus, verbotene Satzmuster, Wortlisten, Vorher-nachher). Jeder neue Post läuft durch einen zweiten Lektorats-Durchgang, der nur die Sprache ändert, nie Zahlen oder Fakten
 
 ## Felder in facts.json
 
